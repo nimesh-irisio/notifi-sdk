@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@notifi-network/notifi-react-hooks": ["notifi-react-hooks/lib"]
+    }
+  }
+}
