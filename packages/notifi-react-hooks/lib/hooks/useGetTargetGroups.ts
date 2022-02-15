@@ -1,9 +1,4 @@
-import axios from 'axios';
-import { useCallback } from 'react';
-import useAuthenticatedQuery from './useAuthenticatedQuery';
-import useNotifiJwt from './useNotifiJwt';
-
-export type Payload = Readonly<{}>;
+import {useParameterlessAuthenticatedQuery} from './useAuthenticatedQuery';
 
 export type Result = ReadonlyArray<{
   id: string | null;
@@ -47,8 +42,8 @@ const QUERY_STRING = `query getTargetGroups {
   }
 }`
 
-const useGetTargetGroups = (): ((payload: Payload) => Promise<Result>) => {
-  return useAuthenticatedQuery(QUERY_STRING, 'targetGroup');
+const useGetTargetGroups = (): (() => Promise<Result>) => {
+  return useParameterlessAuthenticatedQuery(QUERY_STRING, 'targetGroup');
 };
 
 export default useGetTargetGroups;

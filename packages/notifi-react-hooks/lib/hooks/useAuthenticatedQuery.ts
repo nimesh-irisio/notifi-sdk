@@ -39,4 +39,16 @@ const useAuthenticatedQuery = <Variables extends object, Result extends object>(
   return invoke;
 };
 
+export const useParameterlessAuthenticatedQuery = <Result extends object>(
+  query: string,
+  resultKey: string,
+): () => Promise<Result> => {
+  const authenticatedQuery = useAuthenticatedQuery<Record<string, never>, Result>(query, resultKey);
+  const invoke = useCallback(() => {
+    return authenticatedQuery({});
+  }, [authenticatedQuery]);
+
+  return invoke;
+}
+
 export default useAuthenticatedQuery;
