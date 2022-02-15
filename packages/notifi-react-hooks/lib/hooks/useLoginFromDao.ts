@@ -16,9 +16,9 @@ export type Result = Readonly<{
 }>;
 
 type PostResponse = Readonly<{
-  data?: {
+  data?: Readonly<{
     logInFromDao?: Result | null;
-  };
+  }>;
 }>;
 
 const NOTIFI_GQL_URL = "https://api.notifi.network/api/gql";
@@ -41,7 +41,7 @@ const MUTATION_STRING = `mutation logInFromDao(
 }`;
 
 const useLoginFromDao = (): ((payload: Payload) => Promise<Result>) => {
-  const [_jwt, setJwt] = useNotifiJwt();
+  const {setJwt} = useNotifiJwt();
 
   const loginFromDao = useCallback(
     async (payload: Payload) => {
