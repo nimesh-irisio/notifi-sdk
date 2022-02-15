@@ -12,7 +12,7 @@ import useNotifiConfig from "./useNotifiConfig";
 import useNotifiJwt from "./useNotifiJwt";
 import useUpdateTargetGroup from "./useUpdateTargetGRoup";
 
-export default {
+export {
   useAuthenticatedQuery,
   useCreateAlert,
   useCreateEmailTarget,
