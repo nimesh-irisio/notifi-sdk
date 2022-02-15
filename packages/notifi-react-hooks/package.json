@@ -5,13 +5,10 @@
   "author": "Juni Kim <73hKrn@gmail.com>",
   "homepage": "https://github.com/nimesh-irisio/notifi-sdk#readme",
   "license": "MIT",
-  "main": "lib/notifi-react-hooks.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "lib"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"
