@@ -8,6 +8,7 @@ export type Payload = Readonly<{
 export type Result = Readonly<{
   id: string | null;
   name: string | null;
+  telegramId: string | null;
 }>;
 
 const MUTATION_STRING = `mutation createTelegramTarget(
@@ -20,6 +21,7 @@ const MUTATION_STRING = `mutation createTelegramTarget(
   }) {
     id
     name
+    telegramId
   }
 }`
 
