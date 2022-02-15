@@ -22,9 +22,8 @@ const useAuthenticatedQuery = <Variables extends object, Result extends object>(
       const resp = await axios.post<PostResponse<Result>>(gqlUrl, {
         query,
         variables,
-        config: {
-          headers: { Authorization: `Bearer ${jwtRef.current}` },
-        },
+      }, {
+        headers: { Authorization: `Bearer ${jwtRef.current}` },
       });
 
       const result = resp.data.data?.[resultKey];
