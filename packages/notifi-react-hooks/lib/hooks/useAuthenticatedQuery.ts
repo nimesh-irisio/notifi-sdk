@@ -12,10 +12,10 @@ const useAuthenticatedQuery = <Variables extends object, Result extends object>(
   resultKey: string
 ): ((variables: Variables) => Promise<Result>) => {
   const { gqlUrl } = useNotifiConfig();
-  const { jwt } = useNotifiJwt();
+  const { jwtRef } = useNotifiJwt();
   const invoke = useCallback(
     async (variables: Variables) => {
-      if (jwt == null) {
+      if (jwtRef.current == null) {
         throw new Error("Cannot use authenticated query without jwt");
       }
 
@@ -23,7 +23,7 @@ const useAuthenticatedQuery = <Variables extends object, Result extends object>(
         query,
         variables,
         config: {
-          headers: { Authorization: `Bearer ${jwt}` },
+          headers: { Authorization: `Bearer ${jwtRef.current}` },
         },
       });
 
@@ -34,7 +34,7 @@ const useAuthenticatedQuery = <Variables extends object, Result extends object>(
 
       return result;
     },
-    [gqlUrl, jwt]
+    [gqlUrl, jwtRef]
   );
 
   return invoke;
