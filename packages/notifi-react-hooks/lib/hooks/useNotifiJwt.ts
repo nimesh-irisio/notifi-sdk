@@ -1,6 +1,6 @@
 import { createLocalStorageStateHook } from "use-local-storage-state";
 
-const LOCAL_STORAGE_KEY = "notifi:jwt";
+export const LOCAL_STORAGE_KEY = "notifi:jwt";
 
 const useLocalStorage = createLocalStorageStateHook<string | null>(
   LOCAL_STORAGE_KEY,
