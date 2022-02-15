@@ -10,7 +10,7 @@ import useGetTargetGroups from "./useGetTargetGroups";
 import useLoginFromDao from "./useLoginFromDao";
 import useNotifiConfig from "./useNotifiConfig";
 import useNotifiJwt from "./useNotifiJwt";
-import useUpdateTargetGroup from "./useUpdateTargetGRoup";
+import useUpdateTargetGroup from "./useUpdateTargetGroup";
 
 export {
   useAuthenticatedQuery,
