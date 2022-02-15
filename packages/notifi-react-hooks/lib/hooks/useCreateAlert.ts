@@ -1,4 +1,4 @@
-import useAuthenticatedQuery from "./useAuthenticatedQuery";
+import useAuthenticatedQuery from './useAuthenticatedQuery';
 
 export type Payload = Readonly<{
   sourceGroupId: string;
@@ -49,10 +49,10 @@ const MUTATION_STRING = `mutation createAlert(
       name
     }
   }
-}`
+}`;
 
 const useCreateAlert = (): ((payload: Payload) => Promise<Result>) => {
-  return useAuthenticatedQuery(MUTATION_STRING, "createAlert")
+  return useAuthenticatedQuery(MUTATION_STRING, 'createAlert');
 };
 
 export default useCreateAlert;

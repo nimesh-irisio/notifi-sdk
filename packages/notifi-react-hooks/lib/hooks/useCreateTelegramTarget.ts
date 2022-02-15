@@ -1,4 +1,4 @@
-import useAuthenticatedQuery from "./useAuthenticatedQuery";
+import useAuthenticatedQuery from './useAuthenticatedQuery';
 
 export type Payload = Readonly<{
   name: string;
@@ -23,10 +23,10 @@ const MUTATION_STRING = `mutation createTelegramTarget(
     name
     telegramId
   }
-}`
+}`;
 
 const useCreateTelegramTarget = (): ((payload: Payload) => Promise<Result>) => {
-  return useAuthenticatedQuery(MUTATION_STRING, "createTelegramTarget")
+  return useAuthenticatedQuery(MUTATION_STRING, 'createTelegramTarget');
 };
 
 export default useCreateTelegramTarget;

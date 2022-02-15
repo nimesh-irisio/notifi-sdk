@@ -1,4 +1,4 @@
-import useAuthenticatedQuery from "./useAuthenticatedQuery";
+import useAuthenticatedQuery from './useAuthenticatedQuery';
 
 export type Payload = Readonly<{
   name: string;
@@ -27,10 +27,10 @@ const MUTATION_STRING = `mutation createTargetGroup(
     id
     name
   }
-}`
+}`;
 
 const useCreateTargetGroup = (): ((payload: Payload) => Promise<Result>) => {
-  return useAuthenticatedQuery(MUTATION_STRING, "createTargetGroup")
+  return useAuthenticatedQuery(MUTATION_STRING, 'createTargetGroup');
 };
 
 export default useCreateTargetGroup;

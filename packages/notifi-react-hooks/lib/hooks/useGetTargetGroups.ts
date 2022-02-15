@@ -1,4 +1,4 @@
-import {useParameterlessAuthenticatedQuery} from './useAuthenticatedQuery';
+import { useParameterlessAuthenticatedQuery } from './useAuthenticatedQuery';
 
 export type Result = ReadonlyArray<{
   id: string | null;
@@ -40,7 +40,7 @@ const QUERY_STRING = `query getTargetGroups {
       telegramId
     }
   }
-}`
+}`;
 
 const useGetTargetGroups = (): (() => Promise<Result>) => {
   return useParameterlessAuthenticatedQuery(QUERY_STRING, 'targetGroup');

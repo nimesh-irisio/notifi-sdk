@@ -1,6 +1,6 @@
 const useNotifiConfig = () => {
   return {
-    gqlUrl: "https://api.notifi.network/api/gql",
+    gqlUrl: 'https://api.notifi.network/api/gql'
   };
 };
 

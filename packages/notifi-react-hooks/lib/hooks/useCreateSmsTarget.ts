@@ -1,4 +1,4 @@
-import useAuthenticatedQuery from "./useAuthenticatedQuery";
+import useAuthenticatedQuery from './useAuthenticatedQuery';
 
 export type Payload = Readonly<{
   name: string;
@@ -21,10 +21,10 @@ const MUTATION_STRING = `mutation createSmsTarget(
     id
     name
   }
-}`
+}`;
 
 const useCreateSmsTarget = (): ((payload: Payload) => Promise<Result>) => {
-  return useAuthenticatedQuery(MUTATION_STRING, "createSmsTarget")
+  return useAuthenticatedQuery(MUTATION_STRING, 'createSmsTarget');
 };
 
 export default useCreateSmsTarget;

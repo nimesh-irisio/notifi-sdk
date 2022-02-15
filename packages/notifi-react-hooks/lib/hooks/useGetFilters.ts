@@ -1,4 +1,4 @@
-import { useParameterlessAuthenticatedQuery } from "./useAuthenticatedQuery";
+import { useParameterlessAuthenticatedQuery } from './useAuthenticatedQuery';
 
 export type Result = ReadonlyArray<{
   id: string | null;
@@ -13,7 +13,7 @@ const QUERY_STRING = `query getFilters {
 }`;
 
 const useGetFilters = (): (() => Promise<Result>) => {
-  return useParameterlessAuthenticatedQuery(QUERY_STRING, "filter");
+  return useParameterlessAuthenticatedQuery(QUERY_STRING, 'filter');
 };
 
 export default useGetFilters;

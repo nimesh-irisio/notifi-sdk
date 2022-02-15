@@ -1,7 +1,7 @@
-import { useCallback, useRef } from "react";
-import { createLocalStorageStateHook } from "use-local-storage-state";
+import { useCallback, useRef } from 'react';
+import { createLocalStorageStateHook } from 'use-local-storage-state';
 
-export const LOCAL_STORAGE_KEY = "notifi:jwt";
+export const LOCAL_STORAGE_KEY = 'notifi:jwt';
 
 const useLocalStorage = createLocalStorageStateHook<string | null>(
   LOCAL_STORAGE_KEY,

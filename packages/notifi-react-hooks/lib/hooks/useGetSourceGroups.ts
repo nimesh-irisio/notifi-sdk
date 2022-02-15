@@ -1,4 +1,4 @@
-import {useParameterlessAuthenticatedQuery} from './useAuthenticatedQuery';
+import { useParameterlessAuthenticatedQuery } from './useAuthenticatedQuery';
 
 export type Result = ReadonlyArray<{
   id: string | null;
@@ -10,7 +10,7 @@ const QUERY_STRING = `query getSourceGroups {
     id
     name
   }
-}`
+}`;
 
 const useGetSourceGroups = (): (() => Promise<Result>) => {
   return useParameterlessAuthenticatedQuery(QUERY_STRING, 'sourceGroup');
