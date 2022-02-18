@@ -8,6 +8,7 @@ import createTargetGroupImpl from './createTargetGroupImpl';
 import createTelegramTargetImpl from './createTelegramTargetImpl';
 import getAlertsImpl from './getAlertsImpl';
 import getEmailTargetsImpl from './getEmailTargetsImpl';
+import getFiltersImpl from './getFiltersImpl';
 import getSmsTargetsImpl from './getSmsTargetsImpl';
 import getSourceGroupsImpl from './getSourceGroupsImpl';
 import getTargetGroupsImpl from './getTargetGroupImpl';
@@ -24,6 +25,7 @@ export {
   createTelegramTargetImpl,
   getAlertsImpl,
   getEmailTargetsImpl,
+  getFiltersImpl,
   getSmsTargetsImpl,
   getSourceGroupsImpl,
   getTargetGroupsImpl,

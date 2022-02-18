@@ -9,6 +9,7 @@ export class AxiosNotifiService implements NotifiService {
   // Queries
   getAlerts;
   getEmailTargets;
+  getFilters;
   getSmsTargets;
   getSourceGroups;
   getTargetGroups;
@@ -26,6 +27,7 @@ export class AxiosNotifiService implements NotifiService {
   constructor(a: AxiosInstance, j: i.JwtGetter) {
     this.getAlerts = i.getAlertsImpl.bind(null, a, j);
     this.getEmailTargets = i.getEmailTargetsImpl.bind(null, a, j);
+    this.getFilters = i.getFiltersImpl.bind(null, a, j);
     this.getSmsTargets = i.getSmsTargetsImpl.bind(null, a, j);
     this.getSourceGroups = i.getSourceGroupsImpl.bind(null, a, j);
     this.getTargetGroups = i.getTargetGroupsImpl.bind(null, a, j);

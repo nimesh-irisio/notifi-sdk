@@ -1,5 +1,6 @@
 export * from './AlertsService';
 export * from './EmailTargetsService';
+export * from './FiltersService';
 export * from './LogInFromDaoService';
 export * from './SmsTargetsService';
 export * from './SourceGroupsService';
