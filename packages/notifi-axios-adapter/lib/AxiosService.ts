@@ -11,12 +11,14 @@ export class AxiosNotifiService implements NotifiService {
   getEmailTargets;
   getSmsTargets;
   getSourceGroups;
+  getTelegramTargets;
 
   // Mutations
   createAlert;
   createEmailTarget;
   createSmsTarget;
   createSourceGroup;
+  createTelegramTarget;
   logInFromDao;
 
   constructor(axios: AxiosInstance, jwtGetter: i.JwtGetter) {
@@ -24,6 +26,11 @@ export class AxiosNotifiService implements NotifiService {
     this.getEmailTargets = i.getEmailTargetsImpl.bind(null, axios, jwtGetter);
     this.getSmsTargets = i.getSmsTargetsImpl.bind(null, axios, jwtGetter);
     this.getSourceGroups = i.getSourceGroupsImpl.bind(null, axios, jwtGetter);
+    this.getTelegramTargets = i.getTelegramTargetsImpl.bind(
+      null,
+      axios,
+      jwtGetter
+    );
     this.createAlert = i.createAlertImpl.bind(null, axios, jwtGetter);
     this.createEmailTarget = i.createEmailTargetImpl.bind(
       null,
@@ -31,6 +38,11 @@ export class AxiosNotifiService implements NotifiService {
       jwtGetter
     );
     this.createSmsTarget = i.createSmsTargetImpl.bind(null, axios, jwtGetter);
+    this.createTelegramTarget = i.createTelegramTargetImpl.bind(
+      null,
+      axios,
+      jwtGetter
+    );
     this.createSourceGroup = i.createSourceGroupImpl.bind(
       null,
       axios,

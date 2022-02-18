@@ -1,32 +1,21 @@
-import useAuthenticatedQuery from './useAuthenticatedQuery';
+import {
+  CreateTelegramTargetPayload,
+  CreateTelegramTargetResult
+} from '@notifi-network/notifi-core';
+import { useCallback } from 'react';
+import useAxiosNotifiService from './useAxiosNotifiService';
 
-export type Payload = Readonly<{
-  name: string;
-  value: string;
-}>;
+const useCreateTelegramTarget = (): ((
+  payload: CreateTelegramTargetPayload
+) => Promise<CreateTelegramTargetResult>) => {
+  const notifiService = useAxiosNotifiService();
 
-export type Result = Readonly<{
-  id: string | null;
-  name: string | null;
-  telegramId: string | null;
-}>;
-
-const MUTATION_STRING = `mutation createTelegramTarget(
-  $name: String!
-  $value: String!
-) {
-  createTelegramTarget(createTargetInput: {
-    name: $name
-    value: $value
-  }) {
-    id
-    name
-    telegramId
-  }
-}`;
-
-const useCreateTelegramTarget = (): ((payload: Payload) => Promise<Result>) => {
-  return useAuthenticatedQuery(MUTATION_STRING, 'createTelegramTarget');
+  return useCallback(
+    (payload) => {
+      return notifiService.createTelegramTarget(payload);
+    },
+    [notifiService]
+  );
 };
 
 export default useCreateTelegramTarget;
