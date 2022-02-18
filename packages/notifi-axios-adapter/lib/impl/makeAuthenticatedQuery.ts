@@ -2,6 +2,8 @@ import { AxiosInstance } from 'axios';
 
 export type JwtGetter = () => string | null;
 
+export type EmptyPayload = Record<string, never>;
+
 type PostResponse<Result extends object> = Readonly<{
   data?: Record<string, Result | null | undefined>;
 }>;

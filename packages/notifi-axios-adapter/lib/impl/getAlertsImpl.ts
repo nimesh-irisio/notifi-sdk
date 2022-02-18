@@ -1,5 +1,5 @@
 import { AxiosInstance } from 'axios';
-import { GetSourceGroupsResult } from '@notifi-network/notifi-core';
+import { GetAlertsResult } from '@notifi-network/notifi-core';
 import { JwtGetter } from './makeAuthenticatedQuery';
 import makeAuthenticatedQuery, { EmptyPayload } from './makeAuthenticatedQuery';
 
@@ -10,11 +10,11 @@ const QUERY_STRING = `query getSourceGroups {
   }
 }`;
 
-const getSourceGroupsImpl = async (
+const getAlertsImpl = async (
   axios: AxiosInstance,
   jwtGetter: JwtGetter
-): Promise<GetSourceGroupsResult> => {
-  return makeAuthenticatedQuery<EmptyPayload, GetSourceGroupsResult>(
+): Promise<GetAlertsResult> => {
+  return makeAuthenticatedQuery<EmptyPayload, GetAlertsResult>(
     axios,
     jwtGetter,
     {},
@@ -23,4 +23,4 @@ const getSourceGroupsImpl = async (
   );
 };
 
-export default getSourceGroupsImpl;
+export default getAlertsImpl;

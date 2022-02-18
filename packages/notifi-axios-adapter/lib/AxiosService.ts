@@ -3,21 +3,30 @@ import { NotifiService } from '@notifi-network/notifi-core';
 
 import {
   JwtGetter,
-  logInFromDaoImpl,
+  createAlertImpl,
+  createSourceGroupImpl,
+  getAlertsImpl,
   getSourceGroupsImpl,
-  createSourceGroupImpl
+  logInFromDaoImpl
 } from './impl';
 
 export { JwtGetter } from './impl';
 
 export class AxiosNotifiService implements NotifiService {
-  logInFromDao;
+  // Queries
+  getAlerts;
   getSourceGroups;
+
+  // Mutations
+  createAlert;
   createSourceGroup;
+  logInFromDao;
 
   constructor(axios: AxiosInstance, jwtGetter: JwtGetter) {
-    this.logInFromDao = logInFromDaoImpl.bind(null, axios);
+    this.getAlerts = getAlertsImpl.bind(null, axios, jwtGetter);
     this.getSourceGroups = getSourceGroupsImpl.bind(null, axios, jwtGetter);
+    this.createAlert = createAlertImpl.bind(null, axios, jwtGetter);
     this.createSourceGroup = createSourceGroupImpl.bind(null, axios, jwtGetter);
+    this.logInFromDao = logInFromDaoImpl.bind(null, axios);
   }
 }
