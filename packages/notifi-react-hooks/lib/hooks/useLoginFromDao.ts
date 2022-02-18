@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AxiosUnauthenticatedService } from '@notifi-network/notifi-axios-adapter';
 import { useCallback } from 'react';
 import useNotifiJwt from './useNotifiJwt';
 
@@ -15,51 +16,15 @@ export type Result = Readonly<{
   token: string | null;
 }>;
 
-type PostResponse = Readonly<{
-  data?: Readonly<{
-    logInFromDao?: Result | null;
-  }>;
-}>;
-
-const NOTIFI_GQL_URL = 'https://api.notifi.network/api/gql';
-
-const MUTATION_STRING = `mutation logInFromDao(
-  $walletPublicKey: String!
-  $tokenAddress: String!
-  $timestamp: Long!
-  $signature: String!
-) {
-  logInFromDao(daoLogInInput: {
-    walletPublicKey: $walletPublicKey
-    tokenAddress: $tokenAddress
-    timestamp: $timestamp
-  }, signature: $signature) {
-    email
-    emailConfirmed
-    token
-  }
-}`;
+// TODO: get from Context
+const unauthenticatedService = new AxiosUnauthenticatedService(axios);
 
 const useLoginFromDao = (): ((payload: Payload) => Promise<Result>) => {
   const { setJwt } = useNotifiJwt();
 
   const loginFromDao = useCallback(
     async (payload: Payload) => {
-      const { walletPublicKey, tokenAddress, timestamp, signature } = payload;
-
-      const resp = await axios.post<PostResponse>(NOTIFI_GQL_URL, {
-        query: MUTATION_STRING,
-        variables: {
-          walletPublicKey,
-          tokenAddress,
-          timestamp,
-          signature
-        }
-      });
-      const result = resp.data.data?.logInFromDao;
-      if (result == null) {
-        throw new Error('No data returned from notifi');
-      }
+      const result = await unauthenticatedService.logInFromDao(payload);
 
       setJwt(result.token);
 
