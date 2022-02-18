@@ -1,36 +1,20 @@
-import useAuthenticatedQuery from './useAuthenticatedQuery';
+import {
+  CreateTargetGroupPayload,
+  CreateTargetGroupResult
+} from '@notifi-network/notifi-core';
+import { useCallback } from 'react';
+import useAxiosNotifiService from './useAxiosNotifiService';
+const useCreateTargetGroup = (): ((
+  payload: CreateTargetGroupPayload
+) => Promise<CreateTargetGroupResult>) => {
+  const notifiService = useAxiosNotifiService();
 
-export type Payload = Readonly<{
-  name: string;
-  emailTargetIds: string[];
-  smsTargetIds: string[];
-  telegramTargetIds: string[];
-}>;
-
-export type Result = Readonly<{
-  id: string | null;
-  name: string | null;
-}>;
-
-const MUTATION_STRING = `mutation createTargetGroup(
-  $name: String!
-  $emailTargetIds: [String!]!
-  $smsTargetIds: [String!]!
-  $telegramTargetIds: [String!]!
-) {
-  createTargetGroup(targetGroupInput: {
-    name: $name
-    emailTargetIds: $emailTargetIds
-    smsTargetIds: $smsTargetIds
-    telegramTargetIds: $telegramTargetIds
-  }) {
-    id
-    name
-  }
-}`;
-
-const useCreateTargetGroup = (): ((payload: Payload) => Promise<Result>) => {
-  return useAuthenticatedQuery(MUTATION_STRING, 'createTargetGroup');
+  return useCallback(
+    (payload) => {
+      return notifiService.createTargetGroup(payload);
+    },
+    [notifiService]
+  );
 };
 
 export default useCreateTargetGroup;

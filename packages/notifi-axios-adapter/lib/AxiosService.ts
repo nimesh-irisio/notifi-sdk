@@ -11,6 +11,7 @@ export class AxiosNotifiService implements NotifiService {
   getEmailTargets;
   getSmsTargets;
   getSourceGroups;
+  getTargetGroups;
   getTelegramTargets;
 
   // Mutations
@@ -18,36 +19,23 @@ export class AxiosNotifiService implements NotifiService {
   createEmailTarget;
   createSmsTarget;
   createSourceGroup;
+  createTargetGroup;
   createTelegramTarget;
   logInFromDao;
 
-  constructor(axios: AxiosInstance, jwtGetter: i.JwtGetter) {
-    this.getAlerts = i.getAlertsImpl.bind(null, axios, jwtGetter);
-    this.getEmailTargets = i.getEmailTargetsImpl.bind(null, axios, jwtGetter);
-    this.getSmsTargets = i.getSmsTargetsImpl.bind(null, axios, jwtGetter);
-    this.getSourceGroups = i.getSourceGroupsImpl.bind(null, axios, jwtGetter);
-    this.getTelegramTargets = i.getTelegramTargetsImpl.bind(
-      null,
-      axios,
-      jwtGetter
-    );
-    this.createAlert = i.createAlertImpl.bind(null, axios, jwtGetter);
-    this.createEmailTarget = i.createEmailTargetImpl.bind(
-      null,
-      axios,
-      jwtGetter
-    );
-    this.createSmsTarget = i.createSmsTargetImpl.bind(null, axios, jwtGetter);
-    this.createTelegramTarget = i.createTelegramTargetImpl.bind(
-      null,
-      axios,
-      jwtGetter
-    );
-    this.createSourceGroup = i.createSourceGroupImpl.bind(
-      null,
-      axios,
-      jwtGetter
-    );
-    this.logInFromDao = i.logInFromDaoImpl.bind(null, axios);
+  constructor(a: AxiosInstance, j: i.JwtGetter) {
+    this.getAlerts = i.getAlertsImpl.bind(null, a, j);
+    this.getEmailTargets = i.getEmailTargetsImpl.bind(null, a, j);
+    this.getSmsTargets = i.getSmsTargetsImpl.bind(null, a, j);
+    this.getSourceGroups = i.getSourceGroupsImpl.bind(null, a, j);
+    this.getTargetGroups = i.getTargetGroupsImpl.bind(null, a, j);
+    this.getTelegramTargets = i.getTelegramTargetsImpl.bind(null, a, j);
+    this.createAlert = i.createAlertImpl.bind(null, a, j);
+    this.createEmailTarget = i.createEmailTargetImpl.bind(null, a, j);
+    this.createSmsTarget = i.createSmsTargetImpl.bind(null, a, j);
+    this.createTargetGroup = i.createTargetGroupImpl.bind(null, a, j);
+    this.createTelegramTarget = i.createTelegramTargetImpl.bind(null, a, j);
+    this.createSourceGroup = i.createSourceGroupImpl.bind(null, a, j);
+    this.logInFromDao = i.logInFromDaoImpl.bind(null, a);
   }
 }
