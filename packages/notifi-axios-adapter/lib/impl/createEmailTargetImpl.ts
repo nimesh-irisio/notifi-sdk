@@ -3,34 +3,35 @@ import { JwtGetter } from './makeAuthenticatedQuery';
 import makeAuthenticatedQuery from './makeAuthenticatedQuery';
 
 import {
-  CreateSourceGroupPayload,
-  CreateSourceGroupResult
+  CreateEmailTargetPayload,
+  CreateEmailTargetResult
 } from '@notifi-network/notifi-core';
 
-const QUERY_STRING = `mutation createSourceGroup(
+const QUERY_STRING = `mutation createEmailTarget(
   $name: String!
-  $sourceIds: [String!]!
+  $value: String!
 ) {
-  createSourceGroup(sourceGroupInput: {
+  createEmailTarget(createTargetInput: {
     name: $name
-    sourceIds: $sourceIds
+    value: $value
   }) {
     id
     name
+    value
   }
 }`;
 
 const createSourceGroupImpl = async (
   axios: AxiosInstance,
   jwtGetter: JwtGetter,
-  payload: CreateSourceGroupPayload
-): Promise<CreateSourceGroupResult> => {
+  payload: CreateEmailTargetPayload
+): Promise<CreateEmailTargetResult> => {
   return makeAuthenticatedQuery(
     axios,
     jwtGetter,
     payload,
     QUERY_STRING,
-    'createSourceGroup'
+    'createEmailTarget'
   );
 };
 

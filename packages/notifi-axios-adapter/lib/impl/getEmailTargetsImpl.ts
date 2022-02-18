@@ -1,26 +1,26 @@
 import { AxiosInstance } from 'axios';
-import { GetSourceGroupsResult } from '@notifi-network/notifi-core';
+import { GetEmailTargetsResult } from '@notifi-network/notifi-core';
 import { JwtGetter } from './makeAuthenticatedQuery';
 import makeAuthenticatedQuery from './makeAuthenticatedQuery';
 
-const QUERY_STRING = `query getSourceGroups {
-  sourceGroup {
+const QUERY_STRING = `query getEmailTargets {
+  emailTarget {
     id
     name
   }
 }`;
 
-const getSourceGroupsImpl = async (
+const getEmailTargetsImpl = async (
   axios: AxiosInstance,
   jwtGetter: JwtGetter
-): Promise<GetSourceGroupsResult> => {
+): Promise<GetEmailTargetsResult> => {
   return makeAuthenticatedQuery(
     axios,
     jwtGetter,
     {},
     QUERY_STRING,
-    'sourceGroup'
+    'emailTarget'
   );
 };
 
-export default getSourceGroupsImpl;
+export default getEmailTargetsImpl;

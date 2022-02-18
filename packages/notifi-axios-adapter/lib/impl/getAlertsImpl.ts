@@ -1,10 +1,10 @@
 import { AxiosInstance } from 'axios';
 import { GetAlertsResult } from '@notifi-network/notifi-core';
 import { JwtGetter } from './makeAuthenticatedQuery';
-import makeAuthenticatedQuery, { EmptyPayload } from './makeAuthenticatedQuery';
+import makeAuthenticatedQuery from './makeAuthenticatedQuery';
 
-const QUERY_STRING = `query getSourceGroups {
-  sourceGroup {
+const QUERY_STRING = `query getAlerts {
+  alert {
     id
     name
   }
@@ -14,13 +14,7 @@ const getAlertsImpl = async (
   axios: AxiosInstance,
   jwtGetter: JwtGetter
 ): Promise<GetAlertsResult> => {
-  return makeAuthenticatedQuery<EmptyPayload, GetAlertsResult>(
-    axios,
-    jwtGetter,
-    {},
-    QUERY_STRING,
-    'sourceGroup'
-  );
+  return makeAuthenticatedQuery(axios, jwtGetter, {}, QUERY_STRING, 'alert');
 };
 
 export default getAlertsImpl;

@@ -39,7 +39,7 @@ const createSourceGroupImpl = async (
   jwtGetter: JwtGetter,
   payload: CreateAlertPayload
 ): Promise<CreateAlertResult> => {
-  return makeAuthenticatedQuery<CreateAlertPayload, CreateAlertResult>(
+  return makeAuthenticatedQuery(
     axios,
     jwtGetter,
     payload,
