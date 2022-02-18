@@ -1,11 +1,14 @@
 import { AxiosInstance } from 'axios';
 import { NotifiService } from '@notifi-network/notifi-core';
 
-import logInFromDaoImpl from './logInFromDaoImpl';
-import getSourceGroupsImpl from './getSourceGroupsImpl';
-import { JwtGetter } from './makeAuthenticatedQuery';
-import createSourceGroupImpl from './createSourceGroupImpl';
-export { JwtGetter } from './makeAuthenticatedQuery';
+import {
+  JwtGetter,
+  logInFromDaoImpl,
+  getSourceGroupsImpl,
+  createSourceGroupImpl
+} from './impl';
+
+export { JwtGetter } from './impl';
 
 export class AxiosNotifiService implements NotifiService {
   logInFromDao;

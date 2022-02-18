@@ -1,5 +1,5 @@
 import { AxiosNotifiService } from '@notifi-network/notifi-axios-adapter';
-import axios from 'notifi-axios-adapter/node_modules/axios';
+import axios from 'axios';
 import { useCallback, useMemo } from 'react';
 import { useNotifiJwt } from '.';
 

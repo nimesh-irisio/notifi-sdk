@@ -2,15 +2,10 @@ import { AxiosInstance } from 'axios';
 import { JwtGetter } from './makeAuthenticatedQuery';
 import makeAuthenticatedQuery from './makeAuthenticatedQuery';
 
-export type CreateSourceGroupPayload = Readonly<{
-  name: string;
-  sourceIds: string[];
-}>;
-
-export type CreateSourceGroupResult = ReadonlyArray<{
-  id: string | null;
-  name: string | null;
-}>;
+import {
+  CreateSourceGroupPayload,
+  CreateSourceGroupResult
+} from '@notifi-network/notifi-core';
 
 const QUERY_STRING = `mutation createSourceGroup(
   $name: String!
