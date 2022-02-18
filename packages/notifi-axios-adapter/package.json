@@ -6,6 +6,7 @@
   "homepage": "https://github.com/nimesh-irisio/notifi-sdk#readme",
   "license": "MIT",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -21,12 +22,17 @@
     "url": "git+https://github.com/nimesh-irisio/notifi-sdk.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "build": "npm run clean && npm run compile",
+    "clean": "rimraf ./dist",
+    "compile": "tsc -p tsconfig.build.json",
+    "format": "prettier --config .prettierrc **/*.ts --write",
+    "lint": "eslint ."
   },
   "bugs": {
     "url": "https://github.com/nimesh-irisio/notifi-sdk/issues"
   },
   "devDependencies": {
+    "@notifi-network/notifi-core": "^0.0.0",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
     "eslint": "^8.9.0",
@@ -36,7 +42,6 @@
     "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@notifi-network/notifi-core": "^0.0.0",
     "axios": "^0.26.0"
   }
 }
