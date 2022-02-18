@@ -1,29 +1,19 @@
-import axios from 'axios';
-import { AxiosNotifiService } from '@notifi-network/notifi-axios-adapter';
 import { useCallback } from 'react';
 import useNotifiJwt from './useNotifiJwt';
+import useAxiosNotifiService from './useAxiosNotifiService';
+import {
+  LogInFromDaoPayload,
+  LogInFromDaoResult
+} from '@notifi-network/notifi-core';
 
-export type Payload = Readonly<{
-  walletPublicKey: string;
-  tokenAddress: string;
-  timestamp: number;
-  signature: string;
-}>;
-
-export type Result = Readonly<{
-  email: string | null;
-  emailConfirmed: boolean;
-  token: string | null;
-}>;
-
-// TODO: get from Context
-const notifiService = new AxiosNotifiService(axios);
-
-const useLoginFromDao = (): ((payload: Payload) => Promise<Result>) => {
+const useLoginFromDao = (): ((
+  payload: LogInFromDaoPayload
+) => Promise<LogInFromDaoResult>) => {
   const { setJwt } = useNotifiJwt();
+  const notifiService = useAxiosNotifiService();
 
-  const loginFromDao = useCallback(
-    async (payload: Payload) => {
+  return useCallback(
+    async (payload) => {
       const result = await notifiService.logInFromDao(payload);
 
       setJwt(result.token);
@@ -32,8 +22,6 @@ const useLoginFromDao = (): ((payload: Payload) => Promise<Result>) => {
     },
     [setJwt]
   );
-
-  return loginFromDao;
 };
 
 export default useLoginFromDao;

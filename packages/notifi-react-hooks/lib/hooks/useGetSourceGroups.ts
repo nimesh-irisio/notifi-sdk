@@ -1,19 +1,13 @@
-import { useParameterlessAuthenticatedQuery } from './useAuthenticatedQuery';
+import { useCallback } from 'react';
+import { GetSourceGroupsResult } from '@notifi-network/notifi-core';
+import useAxiosNotifiService from './useAxiosNotifiService';
 
-export type Result = ReadonlyArray<{
-  id: string | null;
-  name: string | null;
-}>;
+const useGetSourceGroups = (): (() => Promise<GetSourceGroupsResult>) => {
+  const notifiService = useAxiosNotifiService();
 
-const QUERY_STRING = `query getSourceGroups {
-  sourceGroup {
-    id
-    name
-  }
-}`;
-
-const useGetSourceGroups = (): (() => Promise<Result>) => {
-  return useParameterlessAuthenticatedQuery(QUERY_STRING, 'sourceGroup');
+  return useCallback(() => {
+    return notifiService.getSourceGroups();
+  }, [notifiService]);
 };
 
 export default useGetSourceGroups;
