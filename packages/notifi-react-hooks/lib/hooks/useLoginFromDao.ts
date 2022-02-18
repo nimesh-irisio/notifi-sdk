@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AxiosUnauthenticatedService } from '@notifi-network/notifi-axios-adapter';
+import { AxiosNotifiService } from '@notifi-network/notifi-axios-adapter';
 import { useCallback } from 'react';
 import useNotifiJwt from './useNotifiJwt';
 
@@ -17,14 +17,14 @@ export type Result = Readonly<{
 }>;
 
 // TODO: get from Context
-const unauthenticatedService = new AxiosUnauthenticatedService(axios);
+const notifiService = new AxiosNotifiService(axios);
 
 const useLoginFromDao = (): ((payload: Payload) => Promise<Result>) => {
   const { setJwt } = useNotifiJwt();
 
   const loginFromDao = useCallback(
     async (payload: Payload) => {
-      const result = await unauthenticatedService.logInFromDao(payload);
+      const result = await notifiService.logInFromDao(payload);
 
       setJwt(result.token);
 

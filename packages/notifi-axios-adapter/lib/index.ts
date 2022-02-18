@@ -1,1 +1,1 @@
-export * from './AxiosUnauthenticatedService';
+export * from './AxiosService';

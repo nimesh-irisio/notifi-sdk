@@ -11,6 +11,6 @@ export type LogInFromDaoResult = Readonly<{
   token: string | null;
 }>;
 
-export type UnauthenticatedService = Readonly<{
+export type LogInFromDaoService = Readonly<{
   logInFromDao(payload: LogInFromDaoPayload): Promise<LogInFromDaoResult>;
 }>;

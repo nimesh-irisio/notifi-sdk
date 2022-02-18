@@ -1,1 +1,2 @@
-export * from './UnauthenticatedService';
+export * from './LogInFromDaoService';
+export * from './NotifiService';
