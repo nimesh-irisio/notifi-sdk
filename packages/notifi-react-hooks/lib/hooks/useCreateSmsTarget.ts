@@ -1,30 +1,21 @@
-import useAuthenticatedQuery from './useAuthenticatedQuery';
+import {
+  CreateSmsTargetPayload,
+  CreateSmsTargetResult
+} from '@notifi-network/notifi-core';
+import { useCallback } from 'react';
+import useAxiosNotifiService from './useAxiosNotifiService';
 
-export type Payload = Readonly<{
-  name: string;
-  value: string;
-}>;
+const useCreateSmsTarget = (): ((
+  payload: CreateSmsTargetPayload
+) => Promise<CreateSmsTargetResult>) => {
+  const notifiService = useAxiosNotifiService();
 
-export type Result = Readonly<{
-  id: string | null;
-  name: string | null;
-}>;
-
-const MUTATION_STRING = `mutation createSmsTarget(
-  $name: String!
-  $value: String!
-) {
-  createSmsTarget(createTargetInput: {
-    name: $name
-    value: $value
-  }) {
-    id
-    name
-  }
-}`;
-
-const useCreateSmsTarget = (): ((payload: Payload) => Promise<Result>) => {
-  return useAuthenticatedQuery(MUTATION_STRING, 'createSmsTarget');
+  return useCallback(
+    (payload) => {
+      return notifiService.createSmsTarget(payload);
+    },
+    [notifiService]
+  );
 };
 
 export default useCreateSmsTarget;
