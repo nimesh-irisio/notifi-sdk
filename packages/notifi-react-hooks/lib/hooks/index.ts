@@ -1,4 +1,3 @@
-import useAuthenticatedQuery from './useAuthenticatedQuery';
 import useCreateAlert from './useCreateAlert';
 import useCreateEmailTarget from './useCreateEmailTarget';
 import useCreateSmsTarget from './useCreateSmsTarget';
@@ -8,12 +7,10 @@ import useGetFilters from './useGetFilters';
 import useGetSourceGroups from './useGetSourceGroups';
 import useGetTargetGroups from './useGetTargetGroups';
 import useLoginFromDao from './useLoginFromDao';
-import useNotifiConfig from './useNotifiConfig';
 import useNotifiJwt from './useNotifiJwt';
 import useUpdateTargetGroup from './useUpdateTargetGroup';
 
 export {
-  useAuthenticatedQuery,
   useCreateAlert,
   useCreateEmailTarget,
   useCreateSmsTarget,
@@ -23,7 +20,6 @@ export {
   useGetSourceGroups,
   useGetTargetGroups,
   useLoginFromDao,
-  useNotifiConfig,
   useNotifiJwt,
   useUpdateTargetGroup
 };

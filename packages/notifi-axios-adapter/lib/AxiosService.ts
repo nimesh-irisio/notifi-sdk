@@ -22,6 +22,7 @@ export class AxiosNotifiService implements NotifiService {
   createSourceGroup;
   createTargetGroup;
   createTelegramTarget;
+  updateTargetGroup;
   logInFromDao;
 
   constructor(a: AxiosInstance, j: i.JwtGetter) {
@@ -38,6 +39,7 @@ export class AxiosNotifiService implements NotifiService {
     this.createTargetGroup = i.createTargetGroupImpl.bind(null, a, j);
     this.createTelegramTarget = i.createTelegramTargetImpl.bind(null, a, j);
     this.createSourceGroup = i.createSourceGroupImpl.bind(null, a, j);
+    this.updateTargetGroup = i.updateTargetGroupImpl.bind(null, a, j);
     this.logInFromDao = i.logInFromDaoImpl.bind(null, a);
   }
 }

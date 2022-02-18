@@ -13,6 +13,7 @@ import getSmsTargetsImpl from './getSmsTargetsImpl';
 import getSourceGroupsImpl from './getSourceGroupsImpl';
 import getTargetGroupsImpl from './getTargetGroupImpl';
 import getTelegramTargetsImpl from './getTelegramTargetsImpl';
+import updateTargetGroupImpl from './updateTargetGroupImpl';
 import logInFromDaoImpl from './logInFromDaoImpl';
 
 export {
@@ -30,5 +31,6 @@ export {
   getSourceGroupsImpl,
   getTargetGroupsImpl,
   getTelegramTargetsImpl,
+  updateTargetGroupImpl,
   logInFromDaoImpl
 };

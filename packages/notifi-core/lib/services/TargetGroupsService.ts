@@ -29,9 +29,19 @@ export type CreateTargetGroupPayload = Readonly<{
 
 export type CreateTargetGroupResult = TargetGroup;
 
+export type UpdateTargetGroupPayload = Readonly<{
+  targetGroupId: string;
+}> &
+  CreateTargetGroupPayload;
+
+export type UpdateTargetGroupResult = TargetGroup;
+
 export type TargetGroupsService = Readonly<{
   getTargetGroups(): Promise<GetTargetGroupsResult>;
   createTargetGroup(
     payload: CreateTargetGroupPayload
   ): Promise<CreateTargetGroupResult>;
+  updateTargetGroup(
+    payload: UpdateTargetGroupPayload
+  ): Promise<UpdateTargetGroupResult>;
 }>;
