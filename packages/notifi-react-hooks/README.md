@@ -1,6 +1,6 @@
 # `@notifi/notifi-react-hooks`
 
-> TODO: description
+> React Hooks for using Notifi Network 
 
 ## Usage
 
