@@ -39,13 +39,13 @@ const MUTATION_STRING = `mutation logInFromDao(
   }
 }`;
 
-const useLoginFromDao = (
+const useLogInFromDao = (
   env = BlockchainEnvironment.MainNetBeta
 ): ((payload: Payload) => Promise<Result>) => {
   const { setJwt } = useNotifiJwt();
   const { gqlUrl } = useNotifiConfig(env);
 
-  const loginFromDao = useCallback(
+  const logInFromDao = useCallback(
     async (payload: Payload) => {
       const { walletPublicKey, daoAddress, timestamp, signature } = payload;
 
@@ -70,7 +70,7 @@ const useLoginFromDao = (
     [setJwt]
   );
 
-  return loginFromDao;
+  return logInFromDao;
 };
 
-export default useLoginFromDao;
+export default useLogInFromDao;
