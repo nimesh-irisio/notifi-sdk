@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useCallback } from 'react';
-import { useNotifiConfig } from '.';
-import { BlockchainEnvironment } from './useNotifiConfig';
+import useNotifiConfig, { BlockchainEnvironment } from './useNotifiConfig';
 import useNotifiJwt from './useNotifiJwt';
 
 export type Payload = Readonly<{
@@ -40,7 +39,9 @@ const MUTATION_STRING = `mutation logInFromDao(
   }
 }`;
 
-const useLoginFromDao = (env = BlockchainEnvironment.MainNetBeta): ((payload: Payload) => Promise<Result>) => {
+const useLoginFromDao = (
+  env = BlockchainEnvironment.MainNetBeta
+): ((payload: Payload) => Promise<Result>) => {
   const { setJwt } = useNotifiJwt();
   const { gqlUrl } = useNotifiConfig(env);
 

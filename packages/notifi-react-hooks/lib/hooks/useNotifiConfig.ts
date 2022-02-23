@@ -5,19 +5,19 @@ export enum BlockchainEnvironment {
 }
 
 const useNotifiConfig = (env = BlockchainEnvironment.MainNetBeta) => {
-  let gqlUrl = ''
+  let gqlUrl = '';
   switch (env) {
     case BlockchainEnvironment.MainNetBeta:
-      gqlUrl = 'https://api.notifi.network/gql'
+      gqlUrl = 'https://api.notifi.network/gql';
       break;
     case BlockchainEnvironment.TestNet:
-      gqlUrl = 'https://stg-api.notifi.network/gql'
+      gqlUrl = 'https://stg-api.notifi.network/gql';
       break;
     case BlockchainEnvironment.DevNet:
-      gqlUrl = 'https://dev-api.notifi.network/gql'
+      gqlUrl = 'https://dev-api.notifi.network/gql';
       break;
     default:
-      assertUnreachable(env)
+      assertUnreachable(env);
   }
 
   return {
@@ -25,8 +25,8 @@ const useNotifiConfig = (env = BlockchainEnvironment.MainNetBeta) => {
   };
 };
 
-const assertUnreachable = (_x : never) : never => {
-  throw new Error("This should never be reached");
+const assertUnreachable = (_x: never): never => {
+  throw new Error('This should never be reached');
 };
 
 export default useNotifiConfig;
