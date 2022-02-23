@@ -5,7 +5,7 @@ import useNotifiJwt from './useNotifiJwt';
 
 export type Payload = Readonly<{
   walletPublicKey: string;
-  tokenAddress: string;
+  daoAddress: string;
   timestamp: number;
   signature: string;
 }>;
@@ -24,13 +24,13 @@ type PostResponse = Readonly<{
 
 const MUTATION_STRING = `mutation logInFromDao(
   $walletPublicKey: String!
-  $tokenAddress: String!
+  $daoAddress: String!
   $timestamp: Long!
   $signature: String!
 ) {
   logInFromDao(daoLogInInput: {
     walletPublicKey: $walletPublicKey
-    tokenAddress: $tokenAddress
+    daoAddress: $daoAddress
     timestamp: $timestamp
   }, signature: $signature) {
     email
@@ -47,13 +47,13 @@ const useLoginFromDao = (
 
   const loginFromDao = useCallback(
     async (payload: Payload) => {
-      const { walletPublicKey, tokenAddress, timestamp, signature } = payload;
+      const { walletPublicKey, daoAddress, timestamp, signature } = payload;
 
       const resp = await axios.post<PostResponse>(gqlUrl, {
         query: MUTATION_STRING,
         variables: {
           walletPublicKey,
-          tokenAddress,
+          daoAddress,
           timestamp,
           signature
         }
