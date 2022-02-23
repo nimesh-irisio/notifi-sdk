@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useCallback } from 'react';
+import { useNotifiConfig } from '.';
+import { BlockchainEnvironment } from './useNotifiConfig';
 import useNotifiJwt from './useNotifiJwt';
 
 export type Payload = Readonly<{
@@ -21,8 +23,6 @@ type PostResponse = Readonly<{
   }>;
 }>;
 
-const NOTIFI_GQL_URL = 'https://api.notifi.network/api/gql';
-
 const MUTATION_STRING = `mutation logInFromDao(
   $walletPublicKey: String!
   $tokenAddress: String!
@@ -40,14 +40,15 @@ const MUTATION_STRING = `mutation logInFromDao(
   }
 }`;
 
-const useLoginFromDao = (): ((payload: Payload) => Promise<Result>) => {
+const useLoginFromDao = (env = BlockchainEnvironment.MainNetBeta): ((payload: Payload) => Promise<Result>) => {
   const { setJwt } = useNotifiJwt();
+  const { gqlUrl } = useNotifiConfig(env);
 
   const loginFromDao = useCallback(
     async (payload: Payload) => {
       const { walletPublicKey, tokenAddress, timestamp, signature } = payload;
 
-      const resp = await axios.post<PostResponse>(NOTIFI_GQL_URL, {
+      const resp = await axios.post<PostResponse>(gqlUrl, {
         query: MUTATION_STRING,
         variables: {
           walletPublicKey,
