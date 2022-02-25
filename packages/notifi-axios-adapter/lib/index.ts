@@ -1,3 +1,2 @@
-export default function () {
-  throw new Error('Not Implemented');
-}
+export * from './GqlError';
+export * from './NotifiAxiosService';
