@@ -112,6 +112,7 @@ const useNotifiClient = (
     data: ClientData | null;
     error: Error | null;
     loading: boolean;
+    isAuthenticated: () => boolean;
   }> => {
   const { jwtRef, setJwt } = useNotifiJwt();
   const service = useNotifiService(env);
@@ -246,10 +247,15 @@ const useNotifiClient = (
     [service]
   );
 
+  const isAuthenticated = useCallback(() => {
+    return jwtRef.current !== null;
+  }, [jwtRef]);
+
   return {
     data,
     error,
     fetchData,
+    isAuthenticated,
     logIn,
     loading,
     updateAlert
