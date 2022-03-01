@@ -20,9 +20,7 @@ mutation logInFromDao(
     daoAddress: $daoAddress
     timestamp: $timestamp
   }, signature: $signature) {
-    email
-    emailConfirmed
-    token
+    ...userFragment
   }
 }
 `.trim();
