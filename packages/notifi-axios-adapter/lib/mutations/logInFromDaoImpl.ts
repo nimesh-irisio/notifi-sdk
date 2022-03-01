@@ -24,7 +24,7 @@ mutation logInFromDao(
     emailConfirmed
     token
   }
-
+}
 `.trim();
 
 const logInFromDaoImpl = makeRequest<LogInFromDaoInput, LogInFromDaoResult>(
