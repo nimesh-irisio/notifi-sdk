@@ -38,28 +38,12 @@ const makeRequest = <Input, Result>(
     makeRequestInternal(query, resultKey, axiosInstance, variables);
 };
 
-const makeBooleanRequest = <Input>(
+const makeParameterLessRequest = <Result>(
   query: string,
   resultKey: string
-): ((
-  axiosInstance: AxiosInstance,
-  variables: Input
-) => Promise<
-  Readonly<{
-    success: boolean;
-  }>
->) => {
-  return async (axiosInstance, variables) => {
-    const success = await makeRequestInternal<Input, boolean>(
-      query,
-      resultKey,
-      axiosInstance,
-      variables
-    );
-    return {
-      success
-    };
-  };
+): ((axiosInstance: AxiosInstance) => Promise<Result>) => {
+  return (axiosInstance) =>
+    makeRequestInternal(query, resultKey, axiosInstance, undefined);
 };
 
-export { makeBooleanRequest, makeRequest };
+export { makeParameterLessRequest, makeRequest };

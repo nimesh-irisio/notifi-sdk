@@ -5,6 +5,11 @@ import createEmailTargetImpl from './mutations/createEmailTargetImpl';
 import createSmsTargetImpl from './mutations/createSmsTargetImpl';
 import createTargetGroupImpl from './mutations/createTargetGroupImpl';
 import createTelegramTargetImpl from './mutations/createTelegramTargetImpl';
+import getFiltersImpl from './mutations/getFiltersImpl';
+import getSourceGroupsImpl from './mutations/getSourceGroupsImpl';
+import getTargetGroupsImpl from './mutations/getTargetGroupsImpl';
+import logInFromDaoImpl from './mutations/logInFromDaoImpl';
+import updateTargetGroupImpl from './mutations/updateTargetGroupImpl';
 
 export type NotifiAxiosServiceConfig = Readonly<{
   gqlUrl: string;
@@ -17,6 +22,11 @@ export class NotifiAxiosService implements NotifiService {
   createSmsTarget: NotifiService['createSmsTarget'];
   createTargetGroup: NotifiService['createTargetGroup'];
   createTelegramTarget: NotifiService['createTelegramTarget'];
+  getFilters: NotifiService['getFilters'];
+  getSourceGroups: NotifiService['getSourceGroups'];
+  getTargetGroups: NotifiService['getTargetGroups'];
+  logInFromDao: NotifiService['logInFromDao'];
+  updateTargetGroup: NotifiService['updateTargetGroup'];
 
   constructor(c: NotifiAxiosServiceConfig) {
     const a = axios.create({
@@ -42,5 +52,10 @@ export class NotifiAxiosService implements NotifiService {
     this.createSmsTarget = createSmsTargetImpl.bind(null, a);
     this.createTargetGroup = createTargetGroupImpl.bind(null, a);
     this.createTelegramTarget = createTelegramTargetImpl.bind(null, a);
+    this.getFilters = getFiltersImpl.bind(null, a);
+    this.getSourceGroups = getSourceGroupsImpl.bind(null, a);
+    this.getTargetGroups = getTargetGroupsImpl.bind(null, a);
+    this.logInFromDao = logInFromDaoImpl.bind(null, a);
+    this.updateTargetGroup = updateTargetGroupImpl.bind(null, a);
   }
 }

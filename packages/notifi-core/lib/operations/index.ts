@@ -3,3 +3,8 @@ export * from './CreateEmailTarget';
 export * from './CreateSmsTarget';
 export * from './CreateTargetGroup';
 export * from './CreateTelegramTarget';
+export * from './GetFilters';
+export * from './GetSourceGroups';
+export * from './GetTargetGroups';
+export * from './LogInFromDao';
+export * from './UpdateTargetGroup';
