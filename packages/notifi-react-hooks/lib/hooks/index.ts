@@ -1,3 +1,4 @@
 import useNotifiClient, { MessageSigner } from './useNotifiClient';
+import { BlockchainEnvironment } from './useNotifiConfig';
 
-export { useNotifiClient, MessageSigner };
+export { BlockchainEnvironment, useNotifiClient, MessageSigner };
