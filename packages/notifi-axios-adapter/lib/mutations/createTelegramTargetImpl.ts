@@ -2,7 +2,17 @@ import {
   CreateTelegramTargetInput,
   CreateTelegramTargetResult
 } from '@notifi-network/notifi-core';
+import collectDependencies from '../utils/collectDependencies';
 import { makeRequest } from '../utils/axiosRequest';
+import {
+  telegramTargetFragment,
+  telegramTargetFragmentDependencies
+} from '../fragments';
+
+const DEPENDENCIES = [
+  ...telegramTargetFragmentDependencies,
+  telegramTargetFragment
+];
 
 const MUTATION = `
 mutation createTelegramTarget(
@@ -15,10 +25,7 @@ mutation createTelegramTarget(
       value: $value
     }
   ) {
-    id
-    isConfirmed
-    name
-    telegramId
+    ...telegramTargetFragment
   }
 }
 `.trim();
@@ -26,6 +33,6 @@ mutation createTelegramTarget(
 const createTelegramTargetImpl = makeRequest<
   CreateTelegramTargetInput,
   CreateTelegramTargetResult
->(MUTATION, 'createTelegramTarget');
+>(collectDependencies(...DEPENDENCIES, MUTATION), 'createTelegramTarget');
 
 export default createTelegramTargetImpl;

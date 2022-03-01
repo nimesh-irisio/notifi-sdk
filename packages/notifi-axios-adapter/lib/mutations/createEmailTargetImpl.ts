@@ -2,7 +2,14 @@ import {
   CreateEmailTargetInput,
   CreateEmailTargetResult
 } from '@notifi-network/notifi-core';
+import collectDependencies from '../utils/collectDependencies';
 import { makeRequest } from '../utils/axiosRequest';
+import {
+  emailTargetFragment,
+  emailTargetFragmentDependencies
+} from '../fragments';
+
+const DEPENDENCIES = [...emailTargetFragmentDependencies, emailTargetFragment];
 
 const MUTATION = `
 mutation createEmailTarget(
@@ -15,10 +22,7 @@ mutation createEmailTarget(
       value: $value
     }
   ) {
-    emailAddress
-    id
-    isConfirmed
-    name
+    ...emailTargetFragment
   }
 }
 `.trim();
@@ -26,6 +30,6 @@ mutation createEmailTarget(
 const createEmailTargetImpl = makeRequest<
   CreateEmailTargetInput,
   CreateEmailTargetResult
->(MUTATION, 'createEmailTarget');
+>(collectDependencies(...DEPENDENCIES, MUTATION), 'createEmailTarget');
 
 export default createEmailTargetImpl;
