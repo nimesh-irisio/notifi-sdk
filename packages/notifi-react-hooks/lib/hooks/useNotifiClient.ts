@@ -179,8 +179,8 @@ const useNotifiClient = (
         jwtRef.current = result.token;
         setJwt(result.token);
 
-        const data = await fetchDataImpl(service);
-        setData(data);
+        const newData = await fetchDataImpl(service);
+        setData(newData);
 
         return result;
       } catch (e: unknown) {
@@ -265,7 +265,7 @@ const useNotifiClient = (
         setLoading(false);
       }
     },
-    [service]
+    [data, service]
   );
 
   const isAuthenticated = useCallback(() => {
