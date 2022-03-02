@@ -176,6 +176,9 @@ const useNotifiClient = (
           signature
         });
 
+        jwtRef.current = result.token;
+        setJwt(result.token);
+
         const data = await fetchDataImpl(service);
         setData(data);
 
@@ -229,12 +232,30 @@ const useNotifiClient = (
           });
           return result;
         } else {
+          const filterId = data?.filter?.id ?? null;
+          const sourceGroupId = data?.sourceGroup?.id ?? null;
+          if (filterId === null || sourceGroupId === null) {
+            throw new Error('Data is missing. Have you logged in?');
+          }
+
           const result = await service.createTargetGroup({
             name,
             emailTargetIds,
             smsTargetIds,
             telegramTargetIds
           });
+
+          const targetGroupId = result.id ?? null;
+          if (targetGroupId === null) {
+            throw new Error('TargetGroup creation failed');
+          }
+
+          await service.createAlert({
+            sourceGroupId,
+            filterId,
+            targetGroupId
+          });
+
           return result;
         }
       } catch (e: unknown) {
