@@ -19,7 +19,7 @@ mutation updateTargetGroup(
   $smsTargetIds: [String!]!
   $telegramTargetIds: [String!]!
 ) {
-  createTargetGroup(targetGroupInput: {
+  updateTargetGroup: createTargetGroup(targetGroupInput: {
     id: $id
     name: $name
     emailTargetIds: $emailTargetIds
