@@ -10,7 +10,7 @@ const DEPENDENCIES = [...targetGroupFragmentDependencies, targetGroupFragment];
 
 const MUTATION = `
 query getTargetGroups {
-  targetGroups {
+  targetGroup {
     ...targetGroupFragment
   }
 }
@@ -18,7 +18,7 @@ query getTargetGroups {
 
 const getTargetGroupsImpl = makeParameterLessRequest<GetTargetGroupsResult>(
   collectDependencies(...DEPENDENCIES, MUTATION),
-  'targetGroups'
+  'targetGroup'
 );
 
 export default getTargetGroupsImpl;

@@ -5,9 +5,9 @@ import createEmailTargetImpl from './mutations/createEmailTargetImpl';
 import createSmsTargetImpl from './mutations/createSmsTargetImpl';
 import createTargetGroupImpl from './mutations/createTargetGroupImpl';
 import createTelegramTargetImpl from './mutations/createTelegramTargetImpl';
-import getFiltersImpl from './mutations/getFiltersImpl';
-import getSourceGroupsImpl from './mutations/getSourceGroupsImpl';
-import getTargetGroupsImpl from './mutations/getTargetGroupsImpl';
+import getFiltersImpl from './queries/getFiltersImpl';
+import getSourceGroupsImpl from './queries/getSourceGroupsImpl';
+import getTargetGroupsImpl from './queries/getTargetGroupsImpl';
 import logInFromDaoImpl from './mutations/logInFromDaoImpl';
 import updateTargetGroupImpl from './mutations/updateTargetGroupImpl';
 

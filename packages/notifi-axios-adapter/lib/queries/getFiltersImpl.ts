@@ -7,7 +7,7 @@ const DEPENDENCIES = [...filterFragmentDependencies, filterFragment];
 
 const MUTATION = `
 query getFilters {
-  filters {
+  filter {
     ...filterFragment
   }
 }
@@ -15,7 +15,7 @@ query getFilters {
 
 const getFiltersImpl = makeParameterLessRequest<GetFiltersResult>(
   collectDependencies(...DEPENDENCIES, MUTATION),
-  'filters'
+  'filter'
 );
 
 export default getFiltersImpl;
