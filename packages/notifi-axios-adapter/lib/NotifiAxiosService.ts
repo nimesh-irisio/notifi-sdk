@@ -17,7 +17,7 @@ import getAlertsImpl from './queries/getAlertsImpl';
 
 export type NotifiAxiosServiceConfig = Readonly<{
   gqlUrl: string;
-  getJwt: () => string | undefined;
+  jwtContainer: Readonly<{ current: string | null }>;
 }>;
 
 export class NotifiAxiosService implements NotifiService {
@@ -41,7 +41,7 @@ export class NotifiAxiosService implements NotifiService {
       baseURL: c.gqlUrl
     });
     a.interceptors.request.use((config) => {
-      const jwt = c.getJwt();
+      const jwt = c.jwtContainer.current;
       if (jwt !== undefined) {
         return {
           ...config,
