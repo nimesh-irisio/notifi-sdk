@@ -10,7 +10,8 @@ import {
   Alert,
   EmailTarget,
   SmsTarget,
-  TelegramTarget
+  TelegramTarget,
+  MessageSigner
 } from '@notifi-network/notifi-core';
 import useNotifiService from './useNotifiService';
 import { BlockchainEnvironment } from './useNotifiConfig';
@@ -32,10 +33,6 @@ type InternalData = {
   smsTargets: SmsTarget[];
   telegramTargets: TelegramTarget[];
 };
-
-export type MessageSigner = Readonly<{
-  signMessage: (message: Uint8Array) => Promise<Uint8Array>;
-}>;
 
 const firstOrNull = <T>(arr: ReadonlyArray<T>): T | null => {
   return arr.length > 0 ? arr[0] : null;
@@ -127,8 +124,7 @@ const ensureTelegram = ensureTargetHoc(
 );
 
 const useNotifiClient = (
-  env = BlockchainEnvironment.MainNetBeta,
-  signer: MessageSigner
+  env = BlockchainEnvironment.MainNetBeta
 ): NotifiClient &
   Readonly<{
     data: ClientData | null;
@@ -175,7 +171,7 @@ const useNotifiClient = (
   }, []);
 
   const logIn = useCallback(
-    async (input: LogInInput) => {
+    async (input: LogInInput, signer: MessageSigner) => {
       if (signer == null) {
         throw new Error('Signer cannot be null');
       }
@@ -213,7 +209,7 @@ const useNotifiClient = (
         setLoading(false);
       }
     },
-    [service, signer]
+    [service]
   );
 
   const updateAlert = useCallback(

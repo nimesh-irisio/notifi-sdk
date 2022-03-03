@@ -4,6 +4,13 @@ export type ClientData = Readonly<{
   targetGroup: TargetGroup | null;
 }>;
 
+export type UpdateAlertInput = Readonly<{
+  name: string;
+  emailAddress: string | null;
+  phoneNumber: string | null;
+  telegramId: string | null;
+}>;
+
 export type LogInInput = Readonly<{
   walletPublicKey: string;
   daoAddress: string;
@@ -14,15 +21,12 @@ export type GetSignatureMessageInput = Readonly<{
   daoAddress: string;
 }>;
 
-export type UpdateAlertInput = Readonly<{
-  name: string;
-  emailAddress: string | null;
-  phoneNumber: string | null;
-  telegramId: string | null;
+export type MessageSigner = Readonly<{
+  signMessage: (message: Uint8Array) => Promise<Uint8Array>;
 }>;
 
 export type NotifiClient = Readonly<{
   fetchData: () => Promise<ClientData>;
-  logIn: (input: LogInInput) => Promise<User>;
+  logIn: (input: LogInInput, signer: MessageSigner) => Promise<User>;
   updateAlert: (input: UpdateAlertInput) => Promise<TargetGroup>;
 }>;
