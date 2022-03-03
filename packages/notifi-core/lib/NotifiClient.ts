@@ -1,4 +1,4 @@
-import { Filter, SourceGroup, TargetGroup, User } from './models';
+import { TargetGroup, User } from './models';
 
 export type Config = Readonly<{
   storedJwt: string | undefined;
@@ -6,8 +6,6 @@ export type Config = Readonly<{
 }>;
 
 export type ClientData = Readonly<{
-  filter: Filter | null;
-  sourceGroup: SourceGroup | null;
   targetGroup: TargetGroup | null;
 }>;
 
