@@ -1,7 +1,9 @@
 import { TargetGroup, User } from './models';
 
 export type ClientData = Readonly<{
-  targetGroup: TargetGroup | null;
+  emailAddress: string | null;
+  phoneNumber: string | null;
+  telegramId: string | null;
 }>;
 
 export type UpdateAlertInput = Readonly<{

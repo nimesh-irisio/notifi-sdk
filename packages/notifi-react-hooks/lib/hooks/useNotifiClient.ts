@@ -123,6 +123,21 @@ const ensureTelegram = ensureTargetHoc(
   (arg: TelegramTarget) => arg.telegramId
 );
 
+const projectData = (internalData: InternalData | null): ClientData | null => {
+  if (internalData == null) {
+    return null;
+  }
+
+  const { emailTargets, smsTargets, telegramTargets } =
+    internalData.targetGroup ?? {};
+
+  return {
+    emailAddress: firstOrNull(emailTargets ?? [])?.emailAddress ?? null,
+    phoneNumber: firstOrNull(smsTargets ?? [])?.phoneNumber ?? null,
+    telegramId: firstOrNull(telegramTargets ?? [])?.telegramId ?? null
+  };
+};
+
 const useNotifiClient = (
   env = BlockchainEnvironment.MainNetBeta
 ): NotifiClient &
@@ -144,7 +159,13 @@ const useNotifiClient = (
       setLoading(true);
       const newData = await fetchDataImpl(service);
       setInternalData(newData);
-      return data;
+
+      const clientData = projectData(newData);
+      if (clientData === null) {
+        throw new Error('Unknown error');
+      }
+
+      return clientData;
     } catch (e: unknown) {
       setError(new NotifiClientError(e));
       throw e;
@@ -298,10 +319,8 @@ const useNotifiClient = (
   }, [jwtRef]);
 
   const data = useMemo(() => {
-    return {
-      targetGroup: internalData?.targetGroup ?? null
-    };
-  }, [internalData?.targetGroup]);
+    return projectData(internalData);
+  }, [internalData]);
 
   return {
     data,
