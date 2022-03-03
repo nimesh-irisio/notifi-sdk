@@ -10,6 +10,10 @@ import getSourceGroupsImpl from './queries/getSourceGroupsImpl';
 import getTargetGroupsImpl from './queries/getTargetGroupsImpl';
 import logInFromDaoImpl from './mutations/logInFromDaoImpl';
 import updateTargetGroupImpl from './mutations/updateTargetGroupImpl';
+import getEmailTargetsImpl from './queries/getEmailTargetsImpl';
+import getSmsTargetsImpl from './queries/getSmsTargetsImpl';
+import getTelegramTargetsImpl from './queries/getTelegramTargetsImpl';
+import getAlertsImpl from './queries/getAlertsImpl';
 
 export type NotifiAxiosServiceConfig = Readonly<{
   gqlUrl: string;
@@ -22,9 +26,13 @@ export class NotifiAxiosService implements NotifiService {
   createSmsTarget: NotifiService['createSmsTarget'];
   createTargetGroup: NotifiService['createTargetGroup'];
   createTelegramTarget: NotifiService['createTelegramTarget'];
+  getAlerts: NotifiService['getAlerts'];
+  getEmailTargets: NotifiService['getEmailTargets'];
   getFilters: NotifiService['getFilters'];
+  getSmsTargets: NotifiService['getSmsTargets'];
   getSourceGroups: NotifiService['getSourceGroups'];
   getTargetGroups: NotifiService['getTargetGroups'];
+  getTelegramTargets: NotifiService['getTelegramTargets'];
   logInFromDao: NotifiService['logInFromDao'];
   updateTargetGroup: NotifiService['updateTargetGroup'];
 
@@ -52,9 +60,13 @@ export class NotifiAxiosService implements NotifiService {
     this.createSmsTarget = createSmsTargetImpl.bind(null, a);
     this.createTargetGroup = createTargetGroupImpl.bind(null, a);
     this.createTelegramTarget = createTelegramTargetImpl.bind(null, a);
+    this.getAlerts = getAlertsImpl.bind(null, a);
+    this.getEmailTargets = getEmailTargetsImpl.bind(null, a);
     this.getFilters = getFiltersImpl.bind(null, a);
+    this.getSmsTargets = getSmsTargetsImpl.bind(null, a);
     this.getSourceGroups = getSourceGroupsImpl.bind(null, a);
     this.getTargetGroups = getTargetGroupsImpl.bind(null, a);
+    this.getTelegramTargets = getTelegramTargetsImpl.bind(null, a);
     this.logInFromDao = logInFromDaoImpl.bind(null, a);
     this.updateTargetGroup = updateTargetGroupImpl.bind(null, a);
   }
