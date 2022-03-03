@@ -13,4 +13,7 @@ export type NotifiService = Operations.CreateAlertService &
   Operations.GetTargetGroupsService &
   Operations.GetTelegramTargetsService &
   Operations.LogInFromDaoService &
-  Operations.UpdateTargetGroupService;
+  Operations.UpdateTargetGroupService &
+  Readonly<{
+    setJwt: (jwt: string | null) => void;
+  }>;

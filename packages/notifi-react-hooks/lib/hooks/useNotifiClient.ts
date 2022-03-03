@@ -199,6 +199,7 @@ const useNotifiClient = (
         });
 
         jwtRef.current = result.token;
+        service.setJwt(result.token);
         setJwt(result.token);
 
         const newData = await fetchDataImpl(service);

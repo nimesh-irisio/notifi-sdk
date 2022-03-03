@@ -17,7 +17,7 @@ import getAlertsImpl from './queries/getAlertsImpl';
 
 export type NotifiAxiosServiceConfig = Readonly<{
   gqlUrl: string;
-  jwtContainer: Readonly<{ current: string | null }>;
+  jwtContainer: { current: string | null };
 }>;
 
 export class NotifiAxiosService implements NotifiService {
@@ -36,12 +36,15 @@ export class NotifiAxiosService implements NotifiService {
   logInFromDao: NotifiService['logInFromDao'];
   updateTargetGroup: NotifiService['updateTargetGroup'];
 
+  private jwtContainer;
+
   constructor(c: NotifiAxiosServiceConfig) {
+    this.jwtContainer = c.jwtContainer;
     const a = axios.create({
       baseURL: c.gqlUrl
     });
     a.interceptors.request.use((config) => {
-      const jwt = c.jwtContainer.current;
+      const jwt = this.jwtContainer.current;
       if (jwt !== undefined) {
         return {
           ...config,
@@ -70,4 +73,8 @@ export class NotifiAxiosService implements NotifiService {
     this.logInFromDao = logInFromDaoImpl.bind(null, a);
     this.updateTargetGroup = updateTargetGroupImpl.bind(null, a);
   }
+
+  setJwt = (jwt: string | null) => {
+    this.jwtContainer.current = jwt;
+  };
 }

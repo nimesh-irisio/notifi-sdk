@@ -1,10 +1,5 @@
 import { TargetGroup, User } from './models';
 
-export type Config = Readonly<{
-  storedJwt: string | undefined;
-  onJwtChanged: (newJwt: string) => void;
-}>;
-
 export type ClientData = Readonly<{
   targetGroup: TargetGroup | null;
 }>;
