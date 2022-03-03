@@ -18,11 +18,6 @@ export type LogInInput = Readonly<{
   daoAddress: string;
 }>;
 
-export type GetSignatureMessageInput = Readonly<{
-  walletPublicKey: string;
-  daoAddress: string;
-}>;
-
 export type MessageSigner = Readonly<{
   signMessage: (message: Uint8Array) => Promise<Uint8Array>;
 }>;
