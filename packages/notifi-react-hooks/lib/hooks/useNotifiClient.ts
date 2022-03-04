@@ -171,7 +171,11 @@ const useNotifiClient = (
 
       return clientData;
     } catch (e: unknown) {
-      setError(new NotifiClientError(e));
+      if (e instanceof Error) {
+        setError(e);
+      } else {
+        setError(new NotifiClientError(e));
+      }
       throw e;
     } finally {
       setLoading(false);
@@ -227,7 +231,11 @@ const useNotifiClient = (
 
         return result;
       } catch (e: unknown) {
-        setError(new NotifiClientError(e));
+        if (e instanceof Error) {
+          setError(e);
+        } else {
+          setError(new NotifiClientError(e));
+        }
         throw e;
       } finally {
         setLoading(false);
@@ -308,7 +316,11 @@ const useNotifiClient = (
           return result;
         }
       } catch (e: unknown) {
-        setError(new NotifiClientError(e));
+        if (e instanceof Error) {
+          setError(e);
+        } else {
+          setError(new NotifiClientError(e));
+        }
         throw e;
       } finally {
         setLoading(false);
