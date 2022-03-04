@@ -44,22 +44,31 @@ const firstOrNull = <T>(arr: ReadonlyArray<T>): T | null => {
 };
 
 const fetchDataImpl = async (service: NotifiService): Promise<InternalData> => {
-  const [alerts, filters, emailTargets, smsTargets, telegramTargets] =
-    await Promise.all([
-      service.getAlerts(),
-      service.getFilters(),
-      service.getEmailTargets(),
-      service.getSmsTargets(),
-      service.getTelegramTargets()
-    ]);
+  const [
+    alerts,
+    filters,
+    sourceGroups,
+    targetGroups,
+    emailTargets,
+    smsTargets,
+    telegramTargets
+  ] = await Promise.all([
+    service.getAlerts(),
+    service.getFilters(),
+    service.getSourceGroups(),
+    service.getTargetGroups(),
+    service.getEmailTargets(),
+    service.getSmsTargets(),
+    service.getTelegramTargets()
+  ]);
 
   const alert = firstOrNull(alerts);
 
   return {
     alert,
     filter: firstOrNull(filters),
-    sourceGroup: alert?.sourceGroup ?? null,
-    targetGroup: alert?.targetGroup ?? null,
+    sourceGroup: firstOrNull(sourceGroups),
+    targetGroup: firstOrNull(targetGroups),
     emailTargets: [...emailTargets],
     smsTargets: [...smsTargets],
     telegramTargets: [...telegramTargets]
@@ -283,22 +292,29 @@ const useNotifiClient = (
             telegramTargetIds
           });
 
+          newData.alert = {
+            ...existingAlert,
+            targetGroup: result
+          };
           newData.targetGroup = result;
           setInternalData(newData);
           return result;
         } else {
-          const filterId = newData?.filter?.id ?? null;
-          const sourceGroupId = newData?.sourceGroup?.id ?? null;
+          const filterId = newData.filter?.id ?? null;
+          const sourceGroupId = newData.sourceGroup?.id ?? null;
           if (filterId === null || sourceGroupId === null) {
             throw new Error('Data is missing. Have you logged in?');
           }
 
-          const result = await service.createTargetGroup({
-            name,
-            emailTargetIds,
-            smsTargetIds,
-            telegramTargetIds
-          });
+          let result = newData.targetGroup;
+          if (result === null || result.id === null) {
+            result = await service.createTargetGroup({
+              name,
+              emailTargetIds,
+              smsTargetIds,
+              telegramTargetIds
+            });
+          }
           newData.targetGroup = result;
 
           const targetGroupId = result.id ?? null;
