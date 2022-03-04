@@ -206,7 +206,7 @@ const useNotifiClient = (
           setLoading(false);
         });
     }
-  }, []);
+  }, [jwtRef.current]);
 
   const logIn = useCallback(
     async (signer: MessageSigner) => {
