@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
 const useNotifiJwt = (
@@ -13,7 +13,12 @@ const useNotifiJwt = (
     `${jwtPrefix}:${daoAddress}:${walletPublicKey}`,
     { defaultValue: null }
   );
+
   const jwtRef = useRef<string | null>(storage);
+  useEffect(() => {
+    jwtRef.current = storage;
+  }, [storage]);
+
   const setJwt = useCallback(
     (jwt: string | null): void => {
       jwtRef.current = jwt;
