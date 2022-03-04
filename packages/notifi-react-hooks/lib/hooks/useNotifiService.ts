@@ -1,13 +1,12 @@
 import { NotifiService } from '@notifi-network/notifi-core';
 import { NotifiAxiosService } from '@notifi-network/notifi-axios-adapter';
-import { useMemo } from 'react';
-import useNotifiJwt from './useNotifiJwt';
+import { MutableRefObject, useMemo } from 'react';
 import useNotifiConfig, { BlockchainEnvironment } from './useNotifiConfig';
 
 const useNotifiService = (
-  env = BlockchainEnvironment.MainNetBeta
+  env = BlockchainEnvironment.MainNetBeta,
+  jwtRef: MutableRefObject<string | null>
 ): NotifiService => {
-  const { jwtRef } = useNotifiJwt();
   const { gqlUrl } = useNotifiConfig(env);
 
   const service = useMemo(() => {
@@ -16,7 +15,7 @@ const useNotifiService = (
       jwtContainer: jwtRef
     };
     return new NotifiAxiosService(config);
-  }, [gqlUrl]);
+  }, [gqlUrl, jwtRef]);
 
   return service;
 };

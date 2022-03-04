@@ -1,7 +1,6 @@
 import {
   NotifiClient,
   ClientData,
-  LogInInput,
   UpdateAlertInput,
   NotifiService,
   TargetGroup,
@@ -14,11 +13,17 @@ import {
   MessageSigner
 } from '@notifi-network/notifi-core';
 import useNotifiService from './useNotifiService';
-import { BlockchainEnvironment } from './useNotifiConfig';
+import useNotifiConfig, { BlockchainEnvironment } from './useNotifiConfig';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useNotifiJwt from './useNotifiJwt';
 
-class NotifiClientError extends Error {
+export type NotifiClientConfig = Readonly<{
+  daoAddress: string;
+  walletPublicKey: string;
+  env?: BlockchainEnvironment;
+}>;
+
+export class NotifiClientError extends Error {
   constructor(public underlying: unknown) {
     super('NotifiClient encountered an error');
   }
@@ -39,29 +44,22 @@ const firstOrNull = <T>(arr: ReadonlyArray<T>): T | null => {
 };
 
 const fetchDataImpl = async (service: NotifiService): Promise<InternalData> => {
-  const [
-    alerts,
-    filters,
-    sourceGroups,
-    targetGroups,
-    emailTargets,
-    smsTargets,
-    telegramTargets
-  ] = await Promise.all([
-    service.getAlerts(),
-    service.getFilters(),
-    service.getSourceGroups(),
-    service.getTargetGroups(),
-    service.getEmailTargets(),
-    service.getSmsTargets(),
-    service.getTelegramTargets()
-  ]);
+  const [alerts, filters, emailTargets, smsTargets, telegramTargets] =
+    await Promise.all([
+      service.getAlerts(),
+      service.getFilters(),
+      service.getEmailTargets(),
+      service.getSmsTargets(),
+      service.getTelegramTargets()
+    ]);
+
+  const alert = firstOrNull(alerts);
 
   return {
-    alert: firstOrNull(alerts),
+    alert,
     filter: firstOrNull(filters),
-    sourceGroup: firstOrNull(sourceGroups),
-    targetGroup: firstOrNull(targetGroups),
+    sourceGroup: alert?.sourceGroup ?? null,
+    targetGroup: alert?.targetGroup ?? null,
     emailTargets: [...emailTargets],
     smsTargets: [...smsTargets],
     telegramTargets: [...telegramTargets]
@@ -139,7 +137,7 @@ const projectData = (internalData: InternalData | null): ClientData | null => {
 };
 
 const useNotifiClient = (
-  env = BlockchainEnvironment.MainNetBeta
+  config: NotifiClientConfig
 ): NotifiClient &
   Readonly<{
     data: ClientData | null;
@@ -147,8 +145,14 @@ const useNotifiClient = (
     loading: boolean;
     isAuthenticated: () => boolean;
   }> => {
-  const { jwtRef, setJwt } = useNotifiJwt();
-  const service = useNotifiService(env);
+  const { env, daoAddress, walletPublicKey } = config;
+  const notifiConfig = useNotifiConfig(env);
+  const { jwtRef, setJwt } = useNotifiJwt(
+    daoAddress,
+    walletPublicKey,
+    notifiConfig.storagePrefix
+  );
+  const service = useNotifiService(env, jwtRef);
 
   const [internalData, setInternalData] = useState<InternalData | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -192,12 +196,11 @@ const useNotifiClient = (
   }, []);
 
   const logIn = useCallback(
-    async (input: LogInInput, signer: MessageSigner) => {
+    async (signer: MessageSigner) => {
       if (signer == null) {
         throw new Error('Signer cannot be null');
       }
 
-      const { walletPublicKey, daoAddress } = input;
       const timestamp = Math.round(Date.now() / 1000);
 
       setLoading(true);
@@ -230,7 +233,7 @@ const useNotifiClient = (
         setLoading(false);
       }
     },
-    [service]
+    [service, walletPublicKey, daoAddress]
   );
 
   const updateAlert = useCallback(

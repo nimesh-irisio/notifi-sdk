@@ -1,6 +1,5 @@
 import {
   ClientData,
-  LogInInput,
   MessageSigner,
   TargetGroup,
   UpdateAlertInput,
@@ -12,7 +11,6 @@ import { BlockchainEnvironment } from './useNotifiConfig';
 export {
   BlockchainEnvironment,
   ClientData,
-  LogInInput,
   MessageSigner,
   TargetGroup,
   UpdateAlertInput,

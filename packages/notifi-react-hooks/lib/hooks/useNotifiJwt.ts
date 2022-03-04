@@ -1,14 +1,16 @@
 import { useCallback, useRef } from 'react';
 import useLocalStorageState from 'use-local-storage-state';
 
-export const LOCAL_STORAGE_KEY = 'notifi-jwt';
-
-const useNotifiJwt = (): Readonly<{
+const useNotifiJwt = (
+  daoAddress: string,
+  walletPublicKey: string,
+  jwtPrefix: string
+): Readonly<{
   jwtRef: React.MutableRefObject<string | null>;
   setJwt: (jwt: string | null) => void;
 }> => {
   const [storage, setStorage] = useLocalStorageState<string | null>(
-    LOCAL_STORAGE_KEY,
+    `${jwtPrefix}:${daoAddress}:${walletPublicKey}`,
     { defaultValue: null }
   );
   const jwtRef = useRef<string | null>(storage);
